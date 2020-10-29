@@ -11,6 +11,7 @@ function List(){
     this.display = display
     this.findPrevious = findPrevious
     this.remove = remove;
+    this.getKthFromEnd = getKthFromEnd;
 }
 //插入位置
 function find(item){
@@ -55,13 +56,36 @@ function display(){
     }
 
 }
+// 定义一个方法 用于 链表中倒数第k个节点
+function getKthFromEnd (k) {
+    var first = this.head
+    var second = this.head;
+    // first 走k步
+    while(k!==0){
+        first =first.next;
+        k--
+        console.log(k)
+    }
+    //  first为null 时候 就是second 剩余的
+    while (first !== null) {
+        first = first.next;
+        second = second.next;
+    }
+    return second;
+};
 var cities = new List()
 cities.insert("first","head")
 cities.insert("second", "first")
 cities.insert("thrid","second")
+cities.insert("five","thrid")
 cities.display()
-console.log("========")
-cities.remove("second")
-cities.display()
+console.log("------")
+console.log(cities.getKthFromEnd(2))
+console.log("------")
+// console.log(cities.head)
+
+// console.log("========",cities)
+// cities.remove("second")
+// cities.display()
 
 

@@ -17,6 +17,7 @@ function List(){
     this.moveTo = moveTo ;// 当前位置移动到指定位置
     this.getElement = getElement; // 显示当前元素
     this.contains = contains;// 是否包含该元素
+    this.getKthFromEnd = getKthFromEnd;// 链表中倒数第k个节点
 }
 function append(element){
     this.dataStore[this.listSize++] = element
@@ -93,13 +94,14 @@ function moveTo(position){
 function getElement(){
     return this.dataStore[this.pos]
 }
+
 var names = new List();
 names.append("小红")
 names.append("小王")
 names.append("小丽")
 names.next()
-console.log(names.getElement())
-// 迭代器
-for(names.front();names.currPos()<names.length();names.next()){
-    console.log(names.getElement())
-}
+console.log(names)
+// // 迭代器
+// for(names.front();names.currPos()<names.length();names.next()){
+//     console.log(names.getElement())
+// }
