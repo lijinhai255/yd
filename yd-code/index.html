@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="button" id="test" value="点击" />
+    <!-- <script src="./demo3.js"></script> -->
+    <!-- <script type="text/x-script.multithreaded-js"></script> -->
+    <script>
+      var worker = new Worker('task.js');
+      worker.onmessage = function (event) {
+        console.log(event.data);
+      };
+      worker.postMessage('start');
+    </script>
+  </body>
+</html>
