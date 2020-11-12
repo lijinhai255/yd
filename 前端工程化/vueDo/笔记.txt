@@ -1,0 +1,85 @@
+1、工程化 -》简化流程 
+vue-cli -》脚手架
+
+vue - 》 UI框架
+
+@vue/cli -> vue-cli
+
+1、命令行
+    - 基于文本 查看 处理 操作计算机上面的文件程序
+
+2、搭建vue  项目开发工具
+
+开发环境
+1、webpack 打包css  编译vue -》 html /js es9=》es5  css -》工程化
+
+使用方法 
+  vue <command> [options]
+  主命令 +（子命令） + （参数）
+
+Usage: vue <command> [options]
+
+Options:
+  -V, --version  output the version number
+  -h, --help     output usage information
+
+Commands:
+  init           generate a new project from a template
+  list           list available official templates
+  build          prototype a new project
+  create         (for v3 warning only)
+  help [cmd]     display help for [cmd]  
+
+  vue-cli
+  初始化
+  获取用户配置 交互过程
+  解析配置信息 用户配置+默认配置
+  生成项目文件：通过配置 + 模板 =》 文件
+   git仓库模板
+   自己写的模板
+   1. template -》 模本文件
+   2. meta.js / json
+   prompts - > 弹窗信息 
+   helpers - 》 模板引擎拓展
+   complete =》 钩子函数
+    metalsmith  - 》 站点生成器
+
+
+  清理工作    
+
+1、commander.js
+命令行解决方案
+https://github.com/tj/commander.js
+
+2、inquirer 交互
+
+https://github.com/SBoudrias/Inquirer.js
+var inquirer = require('inquirer');
+inquirer
+  .prompt([
+    /* Pass your questions in here */
+  ])
+  .then(answers => {
+    // Use user feedback for... whatever!!
+  })
+  .catch(error => {
+    if(error.isTtyError) {
+      // Prompt couldn't be rendered in the current environment
+    } else {
+      // Something else when wrong
+    }
+  });
+
+ 3、 chalk 美化交互版面
+  https://github.com/chalk/chalk
+
+4、ora -》 动画
+
+@vue/cli
+packages -》 lerna
+
+
+#!usr/bin/env node 
+
+
+    
