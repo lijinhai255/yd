@@ -2,7 +2,7 @@ const Controller = require("./Controller")
 /**
  * 首页IndexController
  */
-class IndexController extends Controller {
+class VuePressController extends Controller {
     constructor() { 
         super()
     }
@@ -10,10 +10,10 @@ class IndexController extends Controller {
         return async (ctx, next) => {
             // ctx.body = 'hello world'
             const data = "hellow world";
-            ctx.body = await ctx.render("index", {
+            ctx.body = await ctx.render("vue", {
                 data
             });
         };
     }
 }
-module.exports = IndexController;
+module.exports = VuePressController;

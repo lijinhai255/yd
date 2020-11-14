@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development nodemon ./app.js",
-    "server:pro": "cross-env NODE_ENV=production supervisor ./app.js"
+    "server:pro": "cross-env NODE_ENV=production supervisor ./app.js",
+    "build":"babel ./assets/scripts/data.js -o ./assets/scripts/data_bundle.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,9 @@
     "supervisor": "^0.12.0"
   },
   "dependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-modules-systemjs": "^7.12.1",
     "co": "^4.6.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",

@@ -1,22 +1,18 @@
 const Router = require('koa-router')
 var router = new Router();
-const Controller = require("./IndexController");
-const indexController = new Controller();
+const IndexController = require("./IndexController");
+const indexController = new IndexController();
 const ApiController = require("./ApiController");
 const apiController = new ApiController();
-// module.exports = (app) => {
-//     app.use(router(_ => {
-//         _.get('/index.html', indexController.actionIndex());
-//         _.get('/', indexController.actionIndex());
-//     }));
-// }
-function IndexController(app){
+const VuePressController = require("./Vuepress");
+const vuePressController = new VuePressController();
+function InitController(app){
     router.get('/',indexController.actionIndex());
     router.get('/apiData',apiController.actionIndex());
-      
+    router.get('/vuepress',vuePressController.actionIndex());
       app
         .use(router.routes())
         .use(router.allowedMethods());
 
 }
-module.exports = IndexController
+module.exports = InitController

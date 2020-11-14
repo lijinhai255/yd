@@ -5,13 +5,13 @@ const config = require("./config/index")
 const errorHandler = require("./middleware/errorHandler")
 const staticServer = require("koa-static")
 const request = require('request');
-const co = require('co');
-const IndexController = require("./controllers/index")
+const InitController = require("./controllers/index")
 const { historyApiFallback } = require('koa2-connect-history-api-fallback');
 const app = new Koa()
 const router = new Router()
 const port = 3010
 var render = require('koa-swig');
+const co = require('co');
 app.context.render = co.wrap(render({
     root: config.viewDir,
     autoescape: true,
@@ -48,13 +48,13 @@ router.get('/api/feedback', (ctx)=>{
 // app.use(router.routes()).use(router.allowedMethods())
 // app.use(ctx=>{
 // 
-IndexController(app) 
+InitController(app) 
 
 // 
-app.use(staticServer(config.staticDir)  )
+app.use(staticServer(config.staticDir))
 app.use(historyApiFallback({ index:"/",whiteList: ['/api'] }));
 errorHandler.error(app)
 // ctx.body= "hellow world"
 // })
-const host = `http://localhost:${ port }`
-app.listen(port, () => console.log(`server is running on ${ host }`))
+const host = `http://localhost:${ config.port }`
+app.listen(config.port, () => console.log(`server is running on ${ host }`))
