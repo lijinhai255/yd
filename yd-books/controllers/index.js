@@ -1,18 +1,26 @@
-const Router = require('koa-router')
+import Router from '@koa/router'
 var router = new Router();
-const IndexController = require("./IndexController");
+import IndexController  from "./IndexController";
 const indexController = new IndexController();
-const ApiController = require("./ApiController");
+import ApiController  from "./ApiController";
 const apiController = new ApiController();
-const VuePressController = require("./Vuepress");
+import VuePressController  from "./Vuepress";
 const vuePressController = new VuePressController();
+
+// 图书列表页面
+import BooksController from "./BooksController"
+const booksController = new BooksController()
+
+
 function InitController(app){
     router.get('/',indexController.actionIndex());
-    router.get('/apiData',apiController.actionIndex());
+    router.get('/',indexController.actionIndex());
+    router.get('/apiBooks',apiController.actionBooksList());
     router.get('/vuepress',vuePressController.actionIndex());
+    router.get('/books/list',booksController.actionBooksListPage());
       app
         .use(router.routes())
         .use(router.allowedMethods());
 
 }
-module.exports = InitController
+export default  InitController

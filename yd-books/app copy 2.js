@@ -17,7 +17,7 @@
 
 
 import Koa  from 'koa'
-import Router  from '@koa/router'
+import Router  from 'koa-router'
 import config  from "./config/index"
 // import bodyParser = from 'koa-bodyparser'
 import errorHandler  from "./middleware/errorHandler"
@@ -35,7 +35,7 @@ import log4js  from "log4js";
 
 
 
-// 错误日志记录
+// 错误日志计入
 log4js.configure({
   appenders: { globalError: { type: "file", filename: "./logs/error.log" } },
   //只有错误是error 级别 写入文件中
@@ -43,7 +43,8 @@ log4js.configure({
 });
  
 const logger = log4js.getLogger("globalError");
-// logger.error("Cheese is too ripe!");
+logger.error("Cheese is too ripe!");
+
 
 app.context.render = co.wrap(render({
     root: config.viewDir,
@@ -53,17 +54,40 @@ app.context.render = co.wrap(render({
     varControls:["[[","]]"]
   }));
 
+// router.use(bodyParser())
+var getData =  function getBoots(){
+    return new Promise((resolve,reject)=>{
+        request('http://localhost/basic/web/index.php?r=books',  function (error, response, data) {
+        if(!error&&response.statusCode==200){
+            resolve(data)
+        }else{
+            reject(err)
+        }
+    });
+
+    })
+    
+}
+router.get('/api/feedback', (ctx)=>{
+    ctx.type = 'html';
+    ctx.body = getData().then((data)=>{
+        console.log(data,121)
+        // ctx.body = data
+        return JSON.parse(data) 
+    })
+    // ctx.body = [121212]
+
+})
 
 // app.use(router.routes()).use(router.allowedMethods())
 // app.use(ctx=>{
 // 
-errorHandler.error(app,logger)
-
 InitController(app) 
 
 // 
 app.use(staticServer(config.staticDir))
-app.use(historyApiFallback({ index:"/",whiteList: ['/api','/books'] }));
+app.use(historyApiFallback({ index:"/",whiteList: ['/api'] }));
+errorHandler.error(app,logger)
 // ctx.body= "hellow world"
 // })
 const host = `http://localhost:${ config.port }`

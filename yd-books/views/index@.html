@@ -1,0 +1,32 @@
+{% extends './layout.html' %}
+{% block styles %}
+<link rel="stylesheet" href="/styles/index.css">
+{% endblock  %}
+{% block title %} 图书页面的首页📚 {% endblock %}
+{% block content %}
+    <h1>[[ data ]]</h1>
+    <hr />
+    <div id="app">
+        <h2>{{ message }}</h2>
+        <input v-model="message">
+    </div>
+{% endblock %}
+{% block scripts %}
+<script src="/scripts/index.js"></script>
+<script src="/scripts/my.js"></script>
+<!-- <script src="/scripts/data.js"></script> -->
+<!-- <script type="module">
+    import("/scripts/data.js").then(res=>{
+        console.log(res,2)
+    })
+</script>
+<script nomodule src="https://cdn.staticfile.org/react/0.0.0-0c756fb-f7f79fd/cjs/react.production.min.js"></script>
+<script nomodule>
+    // 使用systemjs
+    System.import("/scripts/data_bundle.js").then(res=>{
+        console.log(res,1)
+    })
+
+</script> -->
+
+{% endblock  %}

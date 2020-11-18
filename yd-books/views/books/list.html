@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书列表</title>
+    <!-- <script src="/scripts/underscore.js"></script> -->
+    <script src="/scripts/myUnderscore.js"></script>
+    <script>
+        // console.log(_,"12")
+        // _.each([1,2,3,4],item=>{
+        //     console.log(item,"item")
+        // })
+        _([1,2,3,4,5]).each(item=>{
+            console.log(item,"121")
+        })
+    </script>
+</head>
+<body>
+    <ul>
+        {% for item in data %}
+        <li>[[item.id]]-[[item.name]]</li>
+        {% endfor %}
+     
+    </ul>
+    <button id="btn">点击</button>
+    <script>
+         function log(){
+            console.log(+ new Date());
+        }
+        const logHandle = _.throttle(log,2000);
+        document.querySelector('#btn').onclick = logHandle;
+    </script>
+</body>
+</html>

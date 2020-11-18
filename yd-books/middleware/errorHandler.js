@@ -1,11 +1,12 @@
 class errorHandler {
-   static error(app, logger) {
+   static error(app, globalError) {
         app.use(async (ctx, next) => {
             try{
                 await next();
             }catch(err){
                 //电话 ☎️ 微信 邮件📧 。。。
-                logger.error(err);
+                console.log(globalError)
+                globalError.error(err.message);
                 ctx.status = 500;
                 ctx.body = "😭哇喔网站出错了~";
                 // ctx.render("error")
@@ -17,9 +18,10 @@ class errorHandler {
                 return;
             } 
             //很多项目即使出现了404请求 header 200
+            // globalError.error(err.message);
             ctx.status = 404;
             ctx.body = '<script type="text/javascript" src="//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js" charset="utf-8"></script>';
         });
     }
 }
-module.exports = errorHandler;
+export default errorHandler;

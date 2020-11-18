@@ -3,21 +3,20 @@ import Controller from "./Controller"
 /**
  * 首页IndexController
  */
-class IndexController extends Controller {
+class BooksController extends Controller {
     constructor() { 
         super()
     }
-     actionBooksList(ctx) {
+     actionBooksListPage(ctx) {
         return async (ctx, next) => {
             // ctx.body = 'hello world'
              const booksModel = new BooksModel()
         const result = await booksModel.getBooksList()
-            ctx.body = [
-                {
-                    data:result.data
-                }
-            ]
+        console.log(result.data)
+            ctx.body = await ctx.render("books/list",{
+                data: result.data
+            })
         };
     }
 }
-export default  IndexController;
+export default  BooksController;

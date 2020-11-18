@@ -1,4 +1,4 @@
-const Controller = require("./Controller")
+import Controller from "./Controller"
 /**
  * 首页IndexController
  */
@@ -9,6 +9,7 @@ class IndexController extends Controller {
     actionIndex() {
         return async (ctx, next) => {
             // ctx.body = 'hello world'
+            // throw new Error("自定义错误")
             const data = "hellow world";
             ctx.body = await ctx.render("index", {
                 data
@@ -16,4 +17,4 @@ class IndexController extends Controller {
         };
     }
 }
-module.exports = IndexController;
+export default IndexController;
