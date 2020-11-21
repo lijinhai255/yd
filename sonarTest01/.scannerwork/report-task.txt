@@ -2,5 +2,5 @@ projectKey=my:test01
 serverUrl=http://124.71.28.13:9000
 serverVersion=8.5.1.38104
 dashboardUrl=http://124.71.28.13:9000/dashboard?id=my%3Atest01
-ceTaskId=AXXfqR2Hgd2vgsc2RZ2M
-ceTaskUrl=http://124.71.28.13:9000/api/ce/task?id=AXXfqR2Hgd2vgsc2RZ2M
+ceTaskId=AXXjVvccgd2vgsc2RZ2X
+ceTaskUrl=http://124.71.28.13:9000/api/ce/task?id=AXXjVvccgd2vgsc2RZ2X
