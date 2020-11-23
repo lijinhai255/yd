@@ -1,21 +1,32 @@
 {
-  "name": "weboackDemo",
+  "name": "weboackdemo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config@.js",
   "scripts": {
-    "prod": "webpack --mode production",
-    "dev": "webpack --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js --watch",
+    "build:dev": "webpack serve "
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
-    "babel-loader": "^8.2.1",
-    "babel-preset-env": "^1.7.0",
+    "autoprefixer": "^10.0.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.1.0",
+    "postcss-loader": "^4.1.0",
+    "postcss-preset-env": "^6.7.0",
+    "url-loader": "^4.1.1",
     "webpack": "^5.6.0",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "loader": "^2.1.1",
+    "path": "^0.12.7",
+    "style-loader": "^2.0.0"
   }
 }
