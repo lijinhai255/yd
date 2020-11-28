@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+    <style>
+        img{
+            display: block;
+            height: 450px;
+            margin-bottom: 20px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./img/1.jpg"  alt="">
+    <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./img/2.jpg"  alt="">
+    <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./img/3.jpg"  alt="">
+    <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./img/4.jpg"  alt="">
+    <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./img/5.jpg"  alt="">
+    <img src="http://s4.sinaimg.cn/mw690/006uWPTUgy72CNFYNjB93&690" data-src="./img/6.jpg"  alt="">
+    <script>
+        var imgs = document.querySelectorAll("img")
+        // 节流函数 
+        function throttle(func,wait){
+            let timer = null;
+            return function(...args){
+                if(!timer){
+                    func(...args);
+                    timer = setTimeout(()=>{
+                        timer = null
+                    },wait)
+                }
+            }
+        }
+        // 方法一 
+        function lazyLoad1(imgs){
+
+            // offsetTop 是元素与offsetParent的距离 循环获取直到页面顶部
+            function getTop(e){
+                var T = e.offsetTop
+                while((e=e.offsetParent)){
+                    T += e.offsetTop
+                }
+                
+                return T
+            }
+
+            var H = document.documentElement.clientHeight;
+            var S = document.documentElement.scrollTop;
+            for (var i = 0; i < imgs.length; i++) {
+                console.log(H + S > getTop(imgs[i]),H,S,getTop(imgs[i]))
+                if (H + S > getTop(imgs[i])) {
+                    imgs[i].src = imgs[i].getAttribute('data-src');
+                }
+            }
+        }
+        const thorttleLazyLoad1 = throttle(lazyLoad1,200)
+
+
+        // 第二种方法 
+        function lazyLoad2(imgs){
+            function isIn(el){
+                var bound = el.getBoundingClientRect()
+                var clientHeight = window.innerHeight;
+                return bound.top <=clientHeight+100
+            }
+            for (var i = 0; i < imgs.length; i++) {
+                console.log(isIn(imgs[i]))
+                if (isIn(imgs[i])) {
+                    imgs[i].src = imgs[i].getAttribute('data-src');
+                }
+            }
+
+        }
+        const thorttleLazyLoad2 = throttle(lazyLoad2,200)
+
+        // 带三种方法  IntersectionObserver
+        function lazyLoad3(imgs){
+            const io = new IntersectionObserver((ioes)=>{
+                ioes.forEach((ioe)=>{
+                    const img = ioe.target;
+                    const intersectionRatio = ioe.intersectionRatio;
+                    if(intersectionRatio>0&&intersectionRatio<=1){
+                    console.log(intersectionRatio,"intersectionRatio",img)
+
+                            img.src = img.dataset.src
+                    }
+                    img.onload = img.onerror = ()=>io.unobserve(img)
+                })
+            })
+            imgs.forEach((img)=>io.observe(img))
+
+        }
+        const thorttleLazyLoad3 = throttle(lazyLoad3,200)
+
+        // 监听滚轮事件
+        window.onload = window.onscroll = function(){
+            thorttleLazyLoad3(imgs)
+        }
+
+
+
+    </script>
+</body>
+</html>

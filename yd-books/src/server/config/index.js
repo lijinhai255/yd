@@ -8,7 +8,7 @@ let config = {
 };
 if (process.env.NODE_ENV == "development") {
     const devConfig = {
-        port: 3010,
+        port: 3011,
         catch:false
     }
     config = _.extend(config, devConfig);

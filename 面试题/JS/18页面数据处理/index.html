@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="expire1">过期设置(暴力法)</button>
+    <button id="expire2">过期设置（innerHtml）</button>
+    <ul id="wrap"></ul>
+    <script>
+        let start = new Date().getTime()
+        let $ul = document.getElementById("wrap")
+        let el = document.createDocumentFragment()
+        let allKeys = [];
+        for (let i = 0; i < 1000; i++) {
+            let li = document.createElement("li");
+            li.dataset.key = i;
+            li.innerHTML = i;
+            el.appendChild(li)
+            allKeys.push(i)
+            
+        }
+        $ul.appendChild(el)
+        // 生成过期想 模拟服务器生成数据
+        function getExpireKeys(){
+            let keys = [];
+            while(keys.length<100){
+                let randomKey = Math.floor(Math.random()*1000)
+                if(keys.indexOf(randomKey)===-1){
+                    keys.push(randomKey)
+                }else{
+                    continue
+                }
+            }
+            return keys
+        }
+        // 暴力 遍历
+        document.getElementById("expire1").onclick = function(){
+            let expireKeys = getExpireKeys()
+            let children = $ul.children;
+            for (let i = 0; i < expireKeys.length; i++) {
+                const element = document.querySelector(`[data-key="${expireKeys[i]}"]`)
+                element.innerHTML = element.innerHTML+"已过期"
+                console.log(`[data-key="${expireKeys[i]}"]`,element,"element")
+            }
+        }
+        // 使用模板字符串 innerHtml 替换
+        document.getElementById("expire2").onclick = function(){
+            let expireKeys = getExpireKeys()
+            const item = []
+            for (let i = 0; i < allKeys.length; i++) {
+                item.push(`<li>${allKeys[i]}${expireKeys.indexOf(allKeys[i])!==-1?"已过期":" "}`)
+            }
+            $ul.innerHTML = item.join('')
+        }
+     </script>
+</body>
+</html>
