@@ -3,7 +3,7 @@ const _mode = argv.mode || "development"
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { merge } = require("webpack-merge")
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // 读取文件
 const {sync} = require("glob")
 
@@ -97,6 +97,7 @@ const webpackConfig = {
         ..._plugin,
         new MiniCssExtractPlugin({filename:"css/[name].css"}),
         new HtmlAfterPlugin(),
+        new CleanWebpackPlugin(),
 
     ],
     resolve:{
