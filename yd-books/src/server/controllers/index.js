@@ -14,10 +14,10 @@ const booksController = new BooksController()
 
 function InitController(app){
     router.get('/',indexController.actionIndex());
-    router.get('/',indexController.actionIndex());
     router.get('/apiBooks',apiController.actionBooksList());
     router.get('/vuepress',vuePressController.actionIndex());
     router.get('/books/list',booksController.actionBooksListPage());
+    router.get('/books/create',booksController.actionBooksCreatePage());
       app
         .use(router.routes())
         .use(router.allowedMethods());

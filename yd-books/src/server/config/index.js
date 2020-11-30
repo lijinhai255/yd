@@ -13,10 +13,12 @@ if (process.env.NODE_ENV == "development") {
     }
     config = _.extend(config, devConfig);
 }
-
+if(false){
+    console.log("121212")
+}
 if (process.env.NODE_ENV == "production") {
     const prodConfig = {
-        port: 80,
+        port: 81,
         catch:true
     }
     config = _.extend(config, prodConfig);

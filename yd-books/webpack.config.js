@@ -1,6 +1,7 @@
 const {argv} = require("yargs")
 const _mode = argv.mode || "development"
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { merge } = require("webpack-merge")
 
 // 读取文件
@@ -8,7 +9,9 @@ const {sync} = require("glob")
 
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 
-const {join} = require("path")
+const HtmlAfterPlugin = require("./config/HtmlAfterPlugin.js")
+
+const {join,resolve} = require("path")
 const files = sync("./src/web/views/**/*.entry.js")
 let _entry = {}
 // 读取配置文件
@@ -23,7 +26,7 @@ for(let item of files){
         filename:`../views/${dist}/pages/${template}.html`,
         template:`./src/web/views/${dist}/pages/${template}.html`,
         chunks:["runtime",entryKey],
-        // inject:false
+        inject:false
     })) 
 
     }
@@ -36,13 +39,71 @@ const webpackConfig = {
     optimization:{
         runtimeChunk:"single"
     },
-    output:{
-        path:join(__dirname,"./dist/assets"),
-        filename:"scripts/[name].bundle.js"
+    
+    module:{
+        rules:[
+            {
+                test:/\.(jpg|jpeg|png|gif)$/,
+                use:{
+                    loader:"url-loader",
+                    options:{
+                        name: '[name][hash5].[ext]',
+                        outputPath:"img/",
+                        limit: 2048,
+                    }
+                }
+            },
+            {
+                test:/\.ttf$/,
+                use:{
+                    loader:"file-loader",
+                    
+                }
+            },
+            {
+                test:/\.less$/,
+                use:[
+                    {
+                        loader: "style-loader",
+                      },
+                    {
+                      loader: "css-loader",
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                          postcssOptions: {
+                           
+                          },
+                        },
+                      },
+                    {
+                      loader: "less-loader",
+                      options: {
+                        lessOptions: {
+                          strictMath: true,
+                        },
+                      },
+                    },
+                  ]
+            },
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+              },
+        ]
     },
     plugins:[
-        ..._plugin
-    ]
+        ..._plugin,
+        new MiniCssExtractPlugin({filename:"css/[name].css"}),
+        new HtmlAfterPlugin(),
+
+    ],
+    resolve:{
+        alias: {
+            "@":resolve('./src/web')
+        }
+    }
 
 }
 
