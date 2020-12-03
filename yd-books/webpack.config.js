@@ -1,9 +1,9 @@
 const {argv} = require("yargs")
 const _mode = argv.mode || "development"
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 分割css
 const { merge } = require("webpack-merge")
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //  清空dist文件夹
 // 读取文件
 const {sync} = require("glob")
 

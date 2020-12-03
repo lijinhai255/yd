@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    ul{
+        background-color: aqua;
+        width: 100%;
+        list-style: none;
+
+    }
+    li{
+        height: 20px;
+        background-color: blueviolet;
+        margin-top: 20px;
+    }
+    p{
+        height: 50px;
+        background-color: cadetblue;
+    }
+</style>
+<body>
+    <ul id="ul1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>  
+    
+    <p id="btn">
+        按钮
+    </p>
+
+</body>
+<script>
+    window.onload = function(){
+        var oBtn = document.getElementById("btn")
+        var oUl = document.getElementById("ul1")
+        var aLi = oUl.getElementsByTagName("li")
+        var num = 4
+        // 添加事件委托
+        oUl.onmousemove = function(ev){
+            var ev = ev || window.event;
+            var target = ev.target || ev.srcElement;
+            if(target.nodeName.toLowerCase()==="li"){
+                target.style.background = "red"
+            }
+        }
+        oUl.onmouseout = function(ev){
+            // console.log(ev,12121)
+            var ev = ev || window.event;
+            var target = ev.target || ev.srcElement;
+            if(target.nodeName.toLowerCase()==="li"){
+                target.style.background = "#fff"
+            }
+        }
+        // 添加新的节点
+        oBtn.onclick = function(){
+            num++;
+            var oLi = document.createElement("li")
+            oLi.innerHTML =111*num;
+            oUl.appendChild(oLi)
+        }
+
+
+    }
+    !function(root,dec){
+        class Delegator{
+            constructor(selector){
+                this.root = document.querySelector(selector)
+                this.delegatorEvents = {}; // 代理元素 及事件
+                this.delegator = e=>{
+                    let currentNode = e.target;
+                    const targetEventList = this.delegatorEvents[e.type]
+                    while(currentNode!==e.currentTarget){
+                        targetEventList.forEach(target => {
+                            if(currentNode.matches(target.macther)){
+                                target.callback.call(currentNode,e)
+                            }
+                            
+                        });
+                        currentNode = currentNode.parentNode
+                    }
+                }
+            }
+            on(event,selector,fn){
+                    if(!this.delegatorEvents[event]){
+                        this.delegatorEvents[event] = [{
+                            macther:selector,
+                            callback:fn
+                        }]
+                        this.root.addEventListenter(event,this.delegator)
+                    }else{
+                        this.delegatorEvents[event] = [{
+                            macther:selector,
+                            callback:fn
+                        }]
+                    }
+                    return this
+
+                }
+                destory(){
+                    Object.keys(this,delegatorEvents).forEach(eventName=>{
+                        this.root.removeEvenListener(event,this.delegator)
+                    })
+                }
+        }
+
+        root,Delegator = Delegator
+    }(window,document)
+</script>
+</html>

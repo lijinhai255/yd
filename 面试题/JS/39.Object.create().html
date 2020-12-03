@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const person = {
+            isHuman: false,
+            printIntroduction: function () {
+                console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+            }
+        };
+
+        Object.create = function (prototype, properties) {
+            if (typeof prototype !=="object") {
+                throw TypeError()
+            }
+            // 创建空的构造函数
+            function Ctor() { }
+            // 将构造函数prototype 指向对象
+            Ctor.prototype = prototype
+            var o = new Ctor()
+            if(prototype){
+                o.constructor = Ctor;
+            }
+            if(properties!==undefined){
+                if(properties!==Object(properties)){
+                    throw TypeError()
+                }
+                Object.defineProperties(o,properties)
+            }
+            // 返回新构造函数的实例
+            return o
+        }
+        const me = Object.create({}, { p: { value: 42 } });
+        console.log(me)
+
+
+
+
+    </script>
+</body>
+
+</html>
