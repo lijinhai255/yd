@@ -8,10 +8,19 @@
 </head>
 
 <body>
+    {% include "../../components/banner/banner.html" %}
+   <div id="app">
     <div>
         {% block content %}{% endblock  %}
     </div>
-    {% block script %}{% endblock  %}
+   </div>
+    <script src="https://lib.baomitu.com/jquery/3.5.1/jquery.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-s9FgFS3wBp+4PO+tW068OQGy8nbd7TdRKxH7XLZdetjFCYG2BJ4n6Xe4IMfbRRkf" src="https://lib.baomitu.com/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+    <script>
+        // pjax 相当于vue的router
+        $(document).pjax("a","#app")
+    </script>
+    {% block scripts %}{% endblock  %}
 
 </body>
 

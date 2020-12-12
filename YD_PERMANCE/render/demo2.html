@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .container {
+            position: relative;
+            min-height: 400px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        
+        .ball {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, .75);
+        }
+        
+        .ball:nth-child(1) {
+            background-image: url("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        
+        .ball-running {
+            -webkit-animation: run-around 4s infinite;
+            animation: run-around 4s infinite;
+        }
+        
+        @keyframes run-around {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(200px, 0);
+            }
+            50% {
+                transform: translate(200px, 200px);
+            }
+            75% {
+                transform: translate(0, 200px);
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="container">
+        <div class="ball" id="ball"></div>
+    </div>
+    <script>
+        var balls = document.getElementById("ball");
+        balls.classList.add("ball");
+        balls.classList.add("ball-running");
+    </script>
+</body>
+
+</html>

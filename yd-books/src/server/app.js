@@ -50,7 +50,9 @@ app.context.render = co.wrap(render({
     autoescape: true,
     cache: config.cache, // disable, set to false
     ext: 'html',
-    varControls:["[[","]]"]
+    varControls:["[[","]]"],
+    writeBody: false,
+
   }));
 
 

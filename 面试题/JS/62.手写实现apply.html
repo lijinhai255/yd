@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // apply方法: 接受两个参数， 第一个参数要改变的this指向， 第二个参数是一个数组， 数组中的每一项都是原函数所需要的参数
+
+        Function.prototype.myApply = function(context, ...args) {
+            if (typeof this !== "function") {
+                throw new TypeError("not function")
+            }
+            // ① 缓存函数
+            const fn = this;
+            console.log(this, "this")
+                // 
+            let result = null;
+            // ②确定this 执行
+            context = context || window;
+
+            args = args && args[0] || []
+                // ③ 在改变this中添加函数
+            context.fn = fn
+            result = context.fn(...args)
+            delete context.fn
+            return result
+
+        }
+
+        // 定义函数
+        function fun() {
+            console.log(this, arguments);
+        }
+        // 使用apply方法
+        fun.myApply({}, [1, 2, 3, 4, 5]);
+    </script>
+</body>
+
+</html>

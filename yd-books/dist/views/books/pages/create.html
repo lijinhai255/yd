@@ -1,1 +1,12 @@
-{% extends '../../layouts/layouts.html' %} {% block title %} 图书创建页面 {% endblock %} {%block head%} {%endblock%} {% block content %} {% include "../../../components/banner/banner.html" %} {% endblock %} {% block scripts %} {% endblock %}
+{% extends '../../layouts/layouts.html' %}
+{% block title %} 图书创建页面 {% endblock %}
+{%block head%}
+ <link class="lazyload-css" rel="stylesheet" href="/css/books-create.css">
+{%endblock%}
+{% block content %}
+{% include "../../../components/add/add.html"%} 
+{% endblock %}
+
+{% block scripts %} 
+<script class="lazyload-js" src="/scripts/runtime.bundle.js"></script><script class="lazyload-js" src="/scripts/books-create.bundle.js"></script>
+{% endblock %}

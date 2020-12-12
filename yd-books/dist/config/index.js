@@ -1,23 +1,43 @@
-'use strict';
+"use strict";
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-var _ = _interopDefault(require('lodash'));
-var path = require('path');
+var _lodash = _interopRequireDefault(require("lodash"));
+
+var _path = require("path");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // const _ = require("lodash");
+// const { join } = require('path');
 let config = {
-    "viewDir": path.join(__dirname, "..", 'views'),
-    "staticDir": path.join(__dirname, "..", 'assets')
+  "viewDir": (0, _path.join)(__dirname, "..", 'views'),
+  "staticDir": (0, _path.join)(__dirname, "..", 'assets')
 };
-{
-    const prodConfig = {
-        port: 81,
-        catch:true
-    };
-    config = _.extend(config, prodConfig);
-}
-var config$1 = config;
-// module.exports = config;
 
-module.exports = config$1;
+if (process.env.NODE_ENV == "development") {
+  const devConfig = {
+    port: 3011,
+    catch: false
+  };
+  config = _lodash.default.extend(config, devConfig);
+}
+
+if (false) {
+  console.log("121212");
+}
+
+if (process.env.NODE_ENV == "production") {
+  const prodConfig = {
+    port: 81,
+    catch: true
+  };
+  config = _lodash.default.extend(config, prodConfig);
+}
+
+var _default = config; // module.exports = config;
+
+exports.default = _default;

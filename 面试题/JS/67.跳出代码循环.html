@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 通过添加标签 跳出无线循环
+        loop1: while (1) {
+                switch ("lijinhai") {
+                    case "lijinhai":
+                        break loop1
+
+                }
+            }
+            // 使用 try catch
+        try {
+            while (1) {
+                switch ("lijinhai") {
+                    case "lijinhai":
+                        break loop1
+
+                }
+
+            }
+        } catch (e) {
+            console.log(e)
+
+        }
+
+        // goto 实现
+        out:
+            for (let i = 0; i < 1; i++) {
+                while (1) {
+                    switch ("lijinhai") {
+                        case "lijinhai":
+
+                            continue out
+
+                    }
+                }
+
+            }
+            //  添加方法
+        function test() {
+            while (1) {
+                switch ("lijinhai") {
+                    case "lijinhai":
+
+                        return
+
+                }
+            }
+        }
+        test()
+    </script>
+</body>
+
+</html>

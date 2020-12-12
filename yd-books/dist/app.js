@@ -70,7 +70,8 @@ app.context.render = _co.default.wrap((0, _koaSwig.default)({
   cache: _index.default.cache,
   // disable, set to false
   ext: 'html',
-  varControls: ["[[", "]]"]
+  varControls: ["[[", "]]"],
+  writeBody: false
 })); // app.use(router.routes()).use(router.allowedMethods())
 // app.use(ctx=>{
 // 

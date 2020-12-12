@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css的加载 会影响js的执行
+    </title>
+    <script>
+        console.log("css 加载之前")
+        var startDate = new Date();
+    </script>
+    <style>
+        h1 {
+            color: red !important;
+        }
+    </style>
+    <script>
+        function h() {
+            console.log(document.querySelector("h1"))
+        }
+        setTimeout(h, 0)
+    </script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    css 加载会不会被影响js的执行
+    <h1>标题</h1>
+    <script>
+        // prompt("等待")
+        console.log("css 加载之后")
+        var endtDate = new Date()
+        console.log(`经过了${endtDate-startDate}`)
+    </script>
+</body>
+
+</html>

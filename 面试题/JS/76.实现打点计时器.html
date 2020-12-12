@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 1、从start至end 每100毫秒console.log一个数 每次数字增幅为1
+         * 2、返回的对象中需要包含一个cancel方法 用于停止定时操作
+         * 3、第一个数字需要立即输出
+         * **/
+        const count = (start, end) => {
+            console.log(start)
+            let timer = setInterval(
+                () => {
+                    if (start < end) console.log(start += 1)
+                }, 2000
+            )
+        }
+
+        // const fn = count(1, 100)
+
+
+        function tapper(start, end) {
+            if (start > end || Number.isNaN(Number(start)) || Number.isNaN(Number(end))) throw new Error('invalid input')
+            const interval = 100;
+            let isCancel = false;
+            const init = async() => {
+                console.log(start)
+                    // start++
+                while (start <= end && !isCancel) {
+                    await new Promise((resolve) => {
+                        setTimeout(() => {
+                            if (!isCancel) {
+                                console.log(start)
+                                start++
+                            }
+                            resolve()
+                        }, interval)
+                    })
+                }
+            }
+            const cancel = () => {
+                isCancel = true
+            }
+            return {
+                init,
+                cancel
+            }
+        }
+        const demo = tapper(1, 100)
+        demo.init()
+        setTimeout(() => {
+            domo.cancel();
+        }, 2000)
+    </script>
+</body>
+
+</html>

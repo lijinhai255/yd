@@ -5,10 +5,12 @@ const assetHelp = data =>{
   let js = [];
   let css= [];
   for (const item of data.js) {
-    js.push(`<script src="${item}"></script>`)
+    console.log(item,1212)
+    
+    js.push(`<script class="lazyload-js" src="${item.replace("../../../assets","")}"></script>`);
   }
   for (const item of data.css) {
-    css.push(` <link rel="stylesheet" href="${item}">`)
+    css.push(` <link class="lazyload-css" rel="stylesheet" href="${item.replace("../../../assets","")}">`)
   }
   return {
     js,

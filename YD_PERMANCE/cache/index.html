@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 初始化引擎
+        var manifest = {
+                "a.js": "a.44.js",
+            }
+            // 1、初始化引擎，循环mainfest 永远不能被缓存
+            // 2、 遍历mainfest
+            // 3、 两对缓存
+            // "a.js":"a.44.js"
+            // "a.44.js": "源代码"
+        if (localStorage[key]) {
+            if (localStorage[key] === "a.44.js") {
+                // 添加script标签 将内容添加到script标签中去
+                addScript(localStorage[manifest[key]])
+            } else {
+                // 过期
+                // 页面中添加一个 script  src = "a.44.js"
+                localStorage[key] = manifest[key];
+                localStorage[manifest[key]] = fetch("a.44.js")
+            }
+        } else {
+            // 过期
+            // 页面中添加一个 script  src = "a.44.js"
+            localStorage[key] = manifest[key];
+            localStorage[manifest[key]] = fetch("a.44.js")
+        }
+    </script>
+</body>
+
+</html>

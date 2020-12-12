@@ -3,9 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>实现拖拽</title>
+    <style>
+        .move{
+            position:absolute;
+            width:100px;
+            height:100px;
+            background:gray;
+        }
+        .main{
+            display:flex;
+            justify-content:space-around;
+        }
+        .left{
+            width:300px;
+            height:500px;
+            margin-right:10px;
+            text-align:center;
+            box-sizing:border-box;
+            padding:1px;
+        }
+        .right{
+            width:300px;
+            height:500px;
+            margin-right:10px;
+            text-align:center;
+            box-sizing:border-box;
+            padding:1px;
+            border:1px solid red;
+        }
+        .txt{
+            border:1px solid gray;
+            margin:1px;
+            padding:5px;
+            cursor:move;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="move-container">
+        <div class="move"></div>
+    </div>
+    <main class="main">
+        <div class="left" id="left">
+            <div class="txt-show">左边区域</div>
+            <div id="txt1" draggable="true" class="draggable txt txt1">可移动的文字1</div>
+            <div id="txt2" draggable="true" class="draggable txt txt2">可移动的文字2</div>
+            <div id="txt3" draggable="true" class="draggable txt txt3">可移动的文字3</div>
+            <div id="txt4" draggable="true" class="draggable txt txt4">可移动的文字4</div>
+            <div id="txt5" draggable="true" class="draggable txt txt5">可移动的文字5</div>
+        </div>
+        <div class="right" id="right" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
+            <div class="txt-show">右边区域</div>
+        </div>
+    </main>
 </body>
+<script>
+    let elem = document.querySelector(".move")
+    let dragging; // 拖拽状态
+    let trans, portrait;// 鼠标按下时相对于选中元素的位移
+    document.addEventListener("mousedown",function(e){
+        if(e.target ===elem){
+            dragging = true; // 激活拖拽状态
+            let elemRect = elem.getBoundingClientRect();// 返回元素的大小及其对于视口的位置
+            trans = e.clientX -elemRect.left;// x 坐标
+            portrait = e.clientY - elemRect.top;// y 坐标
+        }
+    })
+    document.addEventListener("mouseup",function(e){
+        dragging = false
+    })
+    document.addEventListener("mousemove",function(e){
+        if(dragging){
+            var moveX = e.clientX - trans,
+            moveY = e.clientY - portrait;
+            elem.style.left = moveX+"px"
+            elem.style.top = moveY+"px"
+
+
+        }
+
+    })
+
+    let txtObj =document.getElementsByClassName("txt")
+    for(let i = 0; i<txtObj.length;i++){
+        txtObj[i].ondragstart= handle_start
+        txtObj[i].ondrag= handle_ondrag
+        txtObj[i].ondragend= handle_end
+    }
+    function handle_start(e){
+        e.dataTransfer.setData("text/plain", e.target.id);
+        console.log("拖拽开始",e.target.id)
+
+    }
+    function handle_ondrag(e){
+        // console.log("handle_drag 拖拽中")
+    }
+    function handle_end(e){
+        console.log("handle_end 拖拽结束",e.target.id)
+    }
+    let target = document.getElementById("right")
+    target.ondragenter= handle_enter;
+    target.ondrageover= handle_over;
+    target.ondragleave= handle_leave;
+    target.ondrop= drop_handler;
+    console.log(target,"target")
+
+    function handle_enter(e){
+        e.preventDefault();
+        console.log("进入")
+
+    }
+   function handle_over(e){
+    e.preventDefault();
+        let returnObj = e.dataTransfer.getData("Text")
+        console.log("进入范围内")
+   }
+
+   function handle_leave(e){
+    e.preventDefault();
+        let returnObj = e.dataTransfer.getData("Text")
+        console.log(returnObj+"进入范围内")
+   }
+   function drop_handler(e){
+       console.log(12121)
+       e.stopPropagation()
+    e.preventDefault();
+        let returnObj =e.dataTransfer.getData("text");
+        console.log(returnObj,"returnObj",e.dataTransfer)
+        if(returnObj){
+            e.target.appendChild(document.getElementById(returnObj))
+        }
+        console.log(returnObj+"12121")
+   }
+   function dragover_handler(ev) {
+            // console.log("dragOver");
+            // prevent Default event
+            ev.preventDefault();
+        }
+
+        function drop_handler(ev) {
+            // console.log("Drop");
+            ev.preventDefault();
+            // Get the data, which is the id of the drop target
+            var data = ev.dataTransfer.getData("text");
+            // appendChild
+            if(ev.target.className==="right"){
+            ev.target.appendChild(document.getElementById(data));
+            }else{
+                target.insertBefore(document.getElementById(data),ev.target.nextSibling);
+            }
+            console.log(data,"data",ev.target)
+
+            // Clear the drag data cache (for all formats/types)
+            ev.dataTransfer.clearData();
+        }
+</script>
 </html>
