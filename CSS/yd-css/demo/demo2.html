@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>demo2</title>
+    <style>
+      body {
+        margin: 0;
+        color: #fff;
+        font-size: 24px;
+        background: #000;
+      }
+      body:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        --star-density: 0.8;
+        --star-opacity: 1;
+        background-image: paint(yd-sky);
+      }
+      body:before {
+        animation: shine 4s linear infinite;
+      }
+      @keyframes shine {
+        0% {
+          --star-opacity: 0;
+        }
+        15% {
+          --star-opacity: 0.4;
+        }
+        45% {
+          --star-opacity: 1;
+        }
+        75% {
+          --star-opacity: 0.4;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      if (!window?.CSS?.paintWorklet) {
+        //降级方法 gif svg
+        console.log('[ error ] >', 'paintWorklet不支持');
+      } else {
+        CSS.paintWorklet.addModule('./demo2.js');
+      }
+    </script>
+  </body>
+</html>
