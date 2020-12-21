@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>js in css</title>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <style>
+      .el {
+        --elUnit: 500px;
+        --arcColor: #8266ff;
+        height: var(--elUnit);
+        width: var(--elUnit);
+        background:paint(background-canvas);
+        --background-canvas: ()=>{
+            ctx.strokeStyle = `var(--arcColor)`;
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(200, 200,50,0,2*Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+        };
+      }
+    </style>
+  </head>
+  <body>
+    <div class="el"></div>
+    <script>
+      CSS.paintWorklet.addModule('./demo1.js');
+    </script>
+  </body>
+</html>

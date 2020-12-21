@@ -1,0 +1,15 @@
+:root {
+  --ydColor: black;
+}
+body {
+  background: var(--ydColor);
+}
+.test {
+  & h1 {
+    color: yellowgreen;
+  }
+}
+
+.qq {
+  height: 200px;
+}
