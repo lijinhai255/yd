@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function merge(arr) {
+            if (!arr.length) return;
+            if (arr.length === 1) return arr[0]
+            const child = arr.splice(0, 1)[0];
+            const res = [];
+            let i = 0, j = 0;
+            arr = merge(arr);
+            console.log(arr, "arr")
+            while (i < child.length && j < arr.length) {
+                if (child[i] < arr[i]) {
+                    res.push(child[i++]);
+                } else if (child[i] > arr[j]) {
+                    res.push(arr[j++]);
+                } else {
+                    res.push(child[i++]);
+                    res.push(arr[j++]);
+                }
+            }
+            while (i < child.length) res.push(child[i++]);
+            while (j < arr.length) res.push(arr[j++]);
+            return res;
+
+        }
+        console.log(merge([[1, 1, 2, 3, 12], [8, 8, 9, 10], [-1, 0, 3, 5]]))
+    </script>
+</body>
+
+</html>

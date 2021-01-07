@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const missingNumber=(arr)=>{
+            let left = 0;
+            let right = arr.length-1;
+            while (left <= right){
+                const mid = Math.floor((right+left)/2);
+                console.log(mid,"mid",arr[mid],(right+left)/2,"right+left",left,right);
+                if(arr[mid]===mid){
+                    left = mid + 1
+                    console.log(left,"left");// 缺失元素在右边
+                }else{
+                    right = mid -1
+                    console.log(right,"right");//缺失元素在左边
+                }
+            }
+            return left;
+        }
+        console.log(missingNumber([0,1,2,4]))
+    </script>
+</body>
+</html>

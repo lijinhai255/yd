@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        你好
+        <div class="one"></div><!-- 我是一个注释 -->
+    <span class="one"></span><!-- 我是一个注释 -->
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+    <script>
+        const allTag = document.getElementsByTagName('*')
+        const arrTag = Array.prototype.slice.call(allTag)
+        let catCh = new Map();
+        arrTag.forEach((item)=>{
+            if(catCh.has(item.nodeName)){
+                let value = catCh.get(item.nodeName)
+                catCh.set(item.nodeName,++value)
+            }else{
+                catCh.set(item.nodeName,1)
+            }
+        })
+        var arr = Array.from(catCh)
+        arr.sort((a,b)=>b[1]-a[1])
+        let newArr = arr.splice(0,3)
+        for (const item of arr ) {
+            if(item[1]===newArr[newArr.length-1][1])newArr.push(item)
+        }
+        console.log(newArr,"arr")
+
+    </script>
+</body>
+
+</html>

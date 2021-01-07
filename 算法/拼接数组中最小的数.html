@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr1 = [10, 100];
+        const arr2 = [297, 10, 25, 11, 68, 2788, 10000];
+        const arr3 = [3, 25]; // 253
+        const arr4 = [3, 52]; // 352
+        const arr5 = [1, 2, 10];
+
+        const findMin = (arr) => {
+            const sortFun = (a, b) => {
+                console.log(a,b)
+                let i = 0;
+                const strA = a.toString();
+                const strB = b.toString();
+                const len = Math.min(strA.length, strB.length);
+                let isAllSame = true;
+                while (i < len) {
+                    if (strA[i] === strB[i]) {
+                        i++;
+                    } else {
+                        isAllSame = false;
+                        return strA[i] - strB[i];
+                    }
+                }
+                //  避免 [10,100] 这种情况 
+                if (isAllSame) return strB - strA;
+            }
+
+            arr.sort(sortFun)
+            return arr.join('')
+        }
+        // 方法二
+        const findMin2 = (nums)=>nums.sort((a,b)=>(""+a+b)-(""+b+a))                                                                     
+
+        const res = findMin2(arr5)
+        console.log(res,"res")
+
+
+    </script>
+</body>
+
+</html>
