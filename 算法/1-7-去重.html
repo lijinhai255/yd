@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         function uniqueArray(array) {
-    // coding...
-}
-// console.log(uniqueArray([1, '1', 1]))
-// console.log(uniqueArray([{ a: 1, b: 2 }, { b: 1 }, { b: 2, a: 1 }]))
+            let result = {};
+            let finalResult = [];
+            for (let i = 0; i < array.length; i++) {
+                result[array[i].b] = array[i];
+            }
+            //console.log(result);{"羽根":{name:"羽根",artist:"air"},"晴天":{name:"晴天",artist:"周杰伦"}}
+            //现在result内部都是不重复的对象了，只需要将其键值取出来转为数组即可
+            for (item in result) {
+                finalResult.push(result[item]);
+            }
+            //console.log(finalResult);[{name:"羽根",artist:"air"},{name:"晴天",artist:"周杰伦"}]
+            return finalResult;
+        }
+        /* @example
+   * [1,'1',1]                            -> [1,'1']
+   * [{a: 1}, {b: 1}, {a: 1}]             -> [{a: 1}, {b: 1}]
+   * [{a: 1, b: 2}, {b: 1}, {a: 1, b: 2}] -> [{a: 1, b: 2}, {b: 1}]
+   * [[1, {a: 1}], [2], [3], [1, {a: 1}]] -> [[1, {a: 1}], [2], [3]]
+   * [{a: 1, b: 2}, {b: 1}, {b: 2, a: 1}] -> [{a: 1, b: 2}, {b: 1}]
+   */
+
+        console.log(uniqueArray([1, '1', 1]))
+        console.log(uniqueArray([{ a: 1, b: 2 }, { b: 1 }, { b: 2, a: 1 }]))
+        console.log(uniqueArray([{ a: 1 }, { b: 1 }, { a: 1 }]))
+        console.log(uniqueArray([[1, { a: 1 }], [2], [3], [1, { a: 1 }]]))
     </script>
 </body>
+
 </html>
